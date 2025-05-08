@@ -1,0 +1,17 @@
+services:
+  #specify the container we want to run
+  assistant:
+    build:
+        #where we want to run the Docker build from
+      context: .
+        #Specify the dockerfile path
+      dockerfile: ./apps/assistant/Dockerfile
+      target: development
+    #use to overwrite the command CMD inside the Dockerfile - remember to specify the app
+    command: npm run start:dev assistant
+    #specify port to connect
+    ports:
+      - '5000:5000'
+    #mounts whole project to the absolute usr/src/app directory
+    volumes:
+      - .:/usr/src/app
