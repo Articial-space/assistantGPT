@@ -2,7 +2,7 @@ import { Logger } from "@nestjs/common";
 import { FilterQuery, Model, Types } from "mongoose";
 
 
-export class AbstractRepository<TDocument extends Document> {
+export class AbstractRepository<TDocument> {
     protected readonly logger: Logger
     constructor(protected readonly model: Model<TDocument>) {}
 

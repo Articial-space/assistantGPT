@@ -8,21 +8,20 @@ import { RMQ_SERVICE } from '@app/common';
 @Module({
   imports: [
     ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: './.env'
+    isGlobal: true
   }),
   ClientsModule.registerAsync([{
     name: RMQ_SERVICE,
     useFactory: (configService: ConfigService) => ({
       transport: Transport.RMQ,
       options: {
-        url: configService.get('RMQ_URI'),
+        urls: [configService.get('RMQ_URI')],
         queue: 'message-queue',
         queueOptions: {
           durable: true
         }
       }
-    }),
+    }) as any,
     inject: [ConfigService]
   }])
 ],

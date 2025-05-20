@@ -9,12 +9,14 @@ async function bootstrap() {
   app.connectMicroservice({
     transport: Transport.RMQ,
     options: {
-      url: configService.get('RMQ_URI'),
+      urls: [configService.get('RMQ_URI')],
       queue: 'message-queue',
       queueOptions: {
         durable: true
       }
     }
   })
+  await app.startAllMicroservices();
+  await app.listen(configService.get('HTTP_PORT'), '0.0.0.0')
 }
 bootstrap();
